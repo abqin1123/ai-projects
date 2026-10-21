@@ -1,0 +1,19 @@
+技能：Python 基础。做过什么：变量、列表、字典、if/for/while 循环、函数、读写文件、用 json 存取数据、看报错定位问题；所有项目代码都是自己一行行写出来的。
+
+技能：调用大模型 API。做过什么：用 OpenAI SDK 调用 DeepSeek（对话）和智谱（向量），API Key 放在 .env 里用 os.getenv 读取，不写死在代码里；会拆响应 choices[0].message.content，会看 usage 里的 token 数。
+
+技能：Prompt 工程。做过什么：按角色、背景、任务、要求、格式、示例六要素写 prompt；用 response_format 强制 JSON 输出再 json.loads 解析；做过 AI 面试官 interview.py（随机抽考点出题、按 JSON 打分点评）；会用温度控制稳定和创意。
+
+技能：多轮对话与上下文管理。做过什么：chat.py 用列表维护消息历史实现多轮对话，实测每轮发送的 token 像雪球一样增长；理解上下文窗口上限、只留最近 N 轮、摘要压缩这些处理办法。
+
+技能：RAG 检索增强生成。做过什么：先做了关键词版（让 AI 提关键词再匹配、去重），再做向量版：用智谱 embedding-3 把资料变成 2048 维向量，手写余弦相似度，top-k 取前 3 段，加 0.4 相似度阈值过滤噪声；按段落切块，向量存进 vectors.json 并记录模型名，换模型会自动报警。
+
+技能：引用溯源与幻觉控制。做过什么：给资料编号 [资料N]，system prompt 要求每句标出处、资料里没有就说没有；写了两层代码核验（编号是否存在、每句是否标了编号），发现并修过引用幻觉（没资料时 AI 编出 [资料1]）。
+
+技能：Gradio 网页演示。做过什么：把 RAG 问答包成 ask 函数，用 gr.Interface 做成网页，显示回答和参考资料，在浏览器 127.0.0.1:7860 打开使用。
+
+技能：Agent 与工具调用（function calling）。做过什么：手写 Agent 循环：用 JSON Schema 写工具说明书，解析 tool_calls、json.loads 参数、执行函数、用 role tool 加 tool_call_id 回填结果，while True 循环直到 AI 不再调用工具；做过乘法、查日期工具，实测并行调用和多轮调用。
+
+技能：Agentic RAG 与对话记忆。做过什么：把向量检索封装成 search_notes 工具交给 Agent 按需调用，配合 system prompt 约束只依据资料回答；空结果返回明确提示；用双层循环加 messages 实现多轮记忆，AI 能理解"它"指上一轮说的内容。
+
+技能：LangChain。做过什么：用 ChatOpenAI 接入 DeepSeek，用 @tool 装饰器自动生成工具说明，用 create_agent 搭 Agent 并打印消息轨迹调试；用 OpenAIEmbeddings 接智谱、InMemoryVectorStore 做相似度检索。
